@@ -1,11 +1,19 @@
-import React, { useRef } from 'react'
+import React, { useRef,useState, } from 'react'
 import {  updatePassword } from "firebase/auth";
 import { auth } from '../config/firebaseMethods';
+import { db, getData } from '../config/firebaseMethods'
+//import { collection, documentId, getDocs, query, where } from 'firebase/firestore'
+//import { useParams } from 'react-router-dom';
 
  
 
 const Profile = () => {
   
+  const [userName, setUserName] = useState('')
+//  const { id } = useParams()
+  // console.log(param.id)
+
+
 const password1 = useRef()
 const password2 = useRef()
   return (

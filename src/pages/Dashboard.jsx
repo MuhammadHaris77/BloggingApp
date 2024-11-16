@@ -61,7 +61,7 @@ const Dashboard = () => {
 
 
 
-  const updateBlog = (event,documentId) => {
+  const updateBlog = (documentId) => {
    event.preventDefault()
     console.log(documentId)
     console.log(updateTitle.current.value, updateDescription.current.value)
@@ -85,6 +85,7 @@ const Dashboard = () => {
 
   const deleteBlog = (documentId) => {
     // console.log("docid", documentId)
+    event.preventDefault()
     deleteDocument(documentId.documentId, 'blog')
       .then((res) => {
         console.log(res)
@@ -179,8 +180,8 @@ const Dashboard = () => {
           <h3 className="font-bold text-lg">Are You Sure!</h3>
           <p className="py-4">You Want to Delete This Blog?</p>
           <div className="modal-action">
-            <form method="dialog ">
-              <button className="btn btn-success m-2" onClick={() => deleteBlog(deleteBlogId)}>Yes</button>
+            <form onSubmit={() => deleteBlog(deleteBlogId)} method="dialog ">
+              <button className="btn btn-success m-2" >Yes</button>
               <button className="btn btn-error m-2">No</button>
             </form>
           </div>
