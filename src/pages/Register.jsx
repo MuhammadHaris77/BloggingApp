@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, } from '../config/config';
+
 import Alert from '../components/Alert';
 import Error from '../components/Error';
+import {signUpUser} from '../config/firebaseMethods.js'
 
 
 const Register = () => {
@@ -15,39 +15,33 @@ const Register = () => {
     const [error, setError] = useState(null);
    const navigate = useNavigate()
 
-    const SignUp = (event) => {
-        event.preventDefault()
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setSuccess(true)
-              setTimeout(()=>{
-                navigate('/login')
-          
-              },1000)
-                console.log("user successfully signup", user)
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(errorMessage)
-                // ..
-                console.log("error", errorMessage)
-                console.log(error)
-            });
+const registerUser=(event)=>{
+    event.preventDefault()
+    signUpUser({
+        email : email.current.value,
+        password: password.current.value,
+        username: username.current.value
+    }).then((res)=>{
+      console.log(res)
+      setSuccess(true)
+      setTimeout(() => {
+        navigate('/login')
+        
+      }, 1000);
+    }).catch((err)=>{
+        console.log(err)
+        setError(err)
+    })
 
-        console.log(username.current.value)
-        console.log(email.current.value)
-        console.log(password.current.value)
-    }
+}
 
 
 
     return (
         <div className='m-auto'>
             {success ? <Alert alert='User Successfully Register! ' /> : error && <Error  alert={error}/>}
-            <form onSubmit={SignUp} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl ' style={{ width: '70%', margin: ' 15px auto' }}  >
-                <h1 className=" text-blue-700 m-2 text-center text-6xl ">Register</h1>
+            <form onSubmit={registerUser} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl ' style={{ width: '70%', margin: ' 15px auto' }}  >
+                <h1 className=" text-[#0a2472] m-2 text-center text-6xl ">Register</h1>
 
                 <br />
                 <label className="input input-bordered flex items-center gap-2">
@@ -59,7 +53,7 @@ const Register = () => {
                         <path
                             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                     </svg>
-                    <input type="text" className="grow" placeholder="Username" ref={username} />
+                    <input type="text" required className="grow" placeholder="Fullname" ref={username} />
                 </label>
                 <br />
                 <label className="input input-bordered flex items-center gap-2">
@@ -73,7 +67,7 @@ const Register = () => {
                         <path
                             d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                     </svg>
-                    <input type="email" className="grow" ref={email} placeholder="Email" />
+                    <input type="email" required className="grow" ref={email} placeholder="Email" />
                 </label>
                 <br />
 
@@ -88,12 +82,12 @@ const Register = () => {
                             d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                             clipRule="evenodd" />
                     </svg>
-                    <input type="password" className="grow" placeholder='Password' ref={password} />
+                    <input type="password" auto required className="grow" placeholder='Password' ref={password} />
                 </label>
                 <br />
-                <button className="btn text-lg bg-blue-700  text-white">Register</button>
+                <button className="btn text-lg bg-[#0a2472]  text-white">Register</button>
 
-                <p className='p-2'>Already Have an Account? <Link to={'/login'} className='text-blue-700 font-semibold' >Sign In</Link>  </p>
+                <p className='p-2'>Already Have an Account? <Link to={'/login'} className='text-[#0a2472] font-semibold' >Sign In</Link>  </p>
 
             </form>
         </div>

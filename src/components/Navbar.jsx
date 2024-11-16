@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth } from '../config/config';
-import { signOut } from 'firebase/auth';
+import { auth } from '../config/firebaseMethods';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 
 const Navbar = () => {
+
+
  const navigate = useNavigate()
+ const [userName,setUserName] = useState('')
+
+ useEffect(()=>{
+   onAuthStateChanged(auth,(user)=>{
+     if(user){
+    //  console.log(user)
+        setUserName(auth.currentUser.email)
+     }
+   })
+ },[])
+
+ console.log(userName)
+
    const logOut=()=>{
     signOut(auth).then(() => {
+        setUserName(null)
         navigate('/login')
         console.log("logout successfully")
       }).catch((error) => {
@@ -20,7 +36,7 @@ const Navbar = () => {
 
   return (
 <div>
-<div className="navbar bg-blue-700">
+<div className="navbar bg-[#0a2472]">
   <div className="navbar-start">
     <div className="dropdown text-white ">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,7 +55,7 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm  dropdown-content bg-blue-700 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        className="menu menu-sm  dropdown-content bg-[#0a2472] rounded-box z-[1] mt-3 w-52 p-2 shadow">
     <Link className='mx-4' to={'/'}>Home</Link> 
     <Link className='mx-4' to={'/dashboard'}>Dashboard</Link>
     <Link className='mx-4' to={'/profile'}>Profile</Link>
@@ -47,7 +63,7 @@ const Navbar = () => {
     </div>
     <a className="btn btn-ghost text-white text-xl">Blogging App</a>
   </div>
-  <div className="navbar-center hidden lg:flex">
+  <div className="navbar-center hidden lg:flex ">
     <ul className="menu menu-horizontal  text-white">
     <Link className='mx-4' to={'/'}>Home</Link> 
     <Link className='mx-4' to={'/dashboard'}>Dashboard</Link>
@@ -56,6 +72,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
+    <p className='px-3 text-white'>{userName}</p>
     <button className="btn" onClick={logOut} >Log Out</button>
   </div>
 </div>
