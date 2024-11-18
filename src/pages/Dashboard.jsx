@@ -10,6 +10,8 @@ const Dashboard = () => {
   const [data, setData] = useState([])
   const [deleteBlogId, setDeleteBlogId] = useState(null)
   const [updateBlogId, setupdateBlogId] = useState()
+  const [showdeleteModal, setshowdeleteModal] = useState(true)
+  const [showUpdateModal, setshowUpdateModal] = useState(true)
 
 
   useEffect(() => {
@@ -62,7 +64,7 @@ const Dashboard = () => {
 
 
   const updateBlog = (documentId) => {
-   event.preventDefault()
+    setLoading(true)
     console.log(documentId)
     console.log(updateTitle.current.value, updateDescription.current.value)
     updateDocument(
@@ -76,25 +78,31 @@ const Dashboard = () => {
         title: updateTitle.current.value,
         description: updateDescription.current.value
       })
-      setData([...data]);
     }).catch((err) => {
       console.log(err);
+    }).finally(() => {
+      setLoading(false)
+      setshowUpdateModal(false)
+
+
     })
+
 
   }
 
   const deleteBlog = (documentId) => {
     // console.log("docid", documentId)
-    event.preventDefault()
     deleteDocument(documentId.documentId, 'blog')
       .then((res) => {
         console.log(res)
         data.splice(deleteBlogId.index, 1)
         setData([...data]);
-
       }).catch((err) => {
         console.log(err);
+      }).finally(() => {
+        setshowdeleteModal(false)
       })
+
   }
 
   return (
@@ -117,7 +125,7 @@ const Dashboard = () => {
           <textarea ref={description} required className="textarea textarea-bordered w-full max-w-xl" placeholder="Whats in your mind?"></textarea>
           <br />
           <br />
-          <button className="btn btn-outline bg-[#0a2472]  text-white"  >{loading ? <span className="loading loading-spinner text-white loading-lg  " ></span> : "Publish Blog"} </button>
+          <button type='submit' className="btn btn-outline bg-[#0a2472]  text-white"  >{loading ? <span className="loading loading-spinner text-white loading-lg  " ></span> : "Publish Blog"} </button>
 
         </form>
       </div>
@@ -146,7 +154,7 @@ const Dashboard = () => {
                               index: index
                             }
                           )
-                          document.getElementById('my_modal_2').showModal()
+                         document.getElementById('my_modal_2').showModal()
                         }}   >Edit</button>
                         <button className="btn btn-outline text-white" onClick={() => {
                           setDeleteBlogId(
@@ -175,37 +183,38 @@ const Dashboard = () => {
       </div>
 
 
-      <dialog id="my_modal_1" className="modal">
+     {  showdeleteModal &&      <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are You Sure!</h3>
           <p className="py-4">You Want to Delete This Blog?</p>
           <div className="modal-action">
-            <form onSubmit={() => deleteBlog(deleteBlogId)} method="dialog ">
-              <button className="btn btn-success m-2" >Yes</button>
-              <button className="btn btn-error m-2">No</button>
-            </form>
+            <div  method="dialog ">
+              <button type='submit' onClick={() => deleteBlog(deleteBlogId)} className="btn btn-success m-2" >Yes</button>
+              <button type='submit' className="btn btn-error m-2">No</button>
+            </div>
           </div>
         </div>
       </dialog>
+}
 
-
-      <dialog id="my_modal_2" className="modal">
+      {showUpdateModal && <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-          <div  className='   text-center' >
-            <form onSubmit={() => updateBlog(updateBlogId)}>
-            <input type="text" required ref={updateTitle} placeholder="Title of your blog?" className="input input-bordered w-full max-w-xl" />
-            <br />
-            <br />
-            <textarea ref={updateDescription} required className="textarea textarea-bordered w-full max-w-xl" placeholder="Whats in your mind?"></textarea>
-            <br />
-            <br />
-            <button className="btn btn-outline bg-[#0a2472]  text-white"  >{loading ? <span className="loading loading-spinner text-white loading-lg  " ></span> : "Update Blog"} </button>
-            </form>
+          <div className='   text-center' >
+            <div >
+              <input type="text" required ref={updateTitle} placeholder="Title of your blog?" className="input input-bordered w-full max-w-xl" />
+              <br />
+              <br />
+              <textarea ref={updateDescription} required className="textarea textarea-bordered w-full max-w-xl" placeholder="Whats in your mind?"></textarea>
+              <br />
+              <br />
+              <button onClick={() => updateBlog(updateBlogId)} className="btn btn-outline bg-[#0a2472]  text-white"  >{loading ? <span className="loading loading-spinner text-white loading-lg  " ></span> : "Update Blog"} </button>
+            </div>
           </div>
         </div>
 
       </dialog >
 
+      }
     </div >
 
   )
