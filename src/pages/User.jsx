@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { db, getData } from '../config/firebaseMethods'
 import { collection, documentId, getDocs, query, where } from 'firebase/firestore'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-
+import Logo from '../image/profile.jpg'
 const User = () => {
 
   const [userName, setUserName] = useState('')
@@ -46,7 +46,7 @@ const User = () => {
       </div>
    
       <div className='  m-auto p-5 w-3/4 shadow-xl'>
-      <h1 className=" text-blue-700 m-2  text-black     text-4xl ">ALL from  {userName}</h1>
+      <h1 className="  m-2  text-black  text-center   text-4xl ">All Blogs from  {userName}</h1>
 
         <div className=' grid justify-items-center'>
           {
@@ -55,6 +55,11 @@ const User = () => {
                 <div key={index} className='grid justify-items-center'>
                   <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
                     <div className="card-body ">
+                    <div className="avatar">
+                        <div className="w-24 rounded-full">
+                          <img src={Logo} />
+                        </div>
+                      </div>
                       <h2 className="card-title text-white justify-start">{item.title}</h2>
                       <p className='text-base-content text-neutral-content justify-start'>{item.description}</p>
                       <br />

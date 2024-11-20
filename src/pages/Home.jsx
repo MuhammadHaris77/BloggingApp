@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { auth, getAllData } from '../config/firebaseMethods'
 import { Link,useParams, useNavigate } from 'react-router-dom'
-
+import Logo from '../image/profile.jpg'
 const Home = () => {
 
   const [dataAllBlog,setdataAllBlog] = useState([])
@@ -48,6 +48,12 @@ const singleUser=(item)=>{
             <div key={index} className='grid justify-items-center'>
             <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
               <div className="card-body ">
+              <div className="avatar">
+                        <div className="w-24 rounded-full">
+                          <img src={Logo} />
+                        </div>
+                      </div>
+            
                 <h2 className="card-title text-white justify-start">{item.title}</h2>
                 <p className='text-base-content text-neutral-content justify-start'>{item.description}</p>
                 <br />

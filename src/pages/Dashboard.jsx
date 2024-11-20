@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { auth, deleteDocument, getData, sendData, updateDocument } from '../config/firebaseMethods'
 import { documentId, Timestamp } from 'firebase/firestore'
-
+import Logo from '../image/profile.jpg'
 const Dashboard = () => {
 
   const title = useRef()
@@ -49,6 +49,9 @@ const Dashboard = () => {
         }
       )
       console.log(data)
+      title.current.value = ''
+      description.current.value = ''
+
 
     }).catch((err) => {
       console.log(err)
@@ -142,9 +145,15 @@ const Dashboard = () => {
             data && data.map((item, index) => {
               return (
                 <div key={index} className='grid justify-items-center'>
+
                   <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
                     <div className="card-body ">
-                      <h2 className="card-title text-white justify-start">{item.title}</h2>
+                      <div className="avatar">
+                        <div className="w-24 rounded-full">
+                          <img src={Logo} />
+                        </div>
+                      </div>
+                      <h2 className="card-title text-white justify-start"> {item.title}</h2>
                       <p className='text-base-content text-neutral-content justify-start'>{item.description}</p>
                       <div className="card-actions justify-end">
                         <button className="btn btn-outline text-white" onClick={() => {
@@ -154,7 +163,7 @@ const Dashboard = () => {
                               index: index
                             }
                           )
-                         document.getElementById('my_modal_2').showModal()
+                          document.getElementById('my_modal_2').showModal()
                         }}   >Edit</button>
                         <button className="btn btn-outline text-white" onClick={() => {
                           setDeleteBlogId(
@@ -183,19 +192,19 @@ const Dashboard = () => {
       </div>
 
 
-     {  showdeleteModal &&      <dialog id="my_modal_1" className="modal">
+      {showdeleteModal && <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are You Sure!</h3>
           <p className="py-4">You Want to Delete This Blog?</p>
           <div className="modal-action">
-            <div  method="dialog ">
+            <div method="dialog ">
               <button type='submit' onClick={() => deleteBlog(deleteBlogId)} className="btn btn-success m-2" >Yes</button>
               <button type='submit' className="btn btn-error m-2">No</button>
             </div>
           </div>
         </div>
       </dialog>
-}
+      }
 
       {showUpdateModal && <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
