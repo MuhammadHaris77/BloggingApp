@@ -17,6 +17,7 @@ import {
   doc,
   orderBy,
   updateDoc,
+  Timestamp,
 } from "firebase/firestore";
 
 
@@ -117,7 +118,7 @@ const getData = (colName , uid) => {
 const getAllData = (colName) => {
   return new Promise(async (resolve, reject) => {
     const dataArr = []
-    const querySnapshot = await getDocs(collection(db, colName ) );
+    const querySnapshot = await getDocs(collection(db, colName  ), orderBy( colName, "desc"));
     querySnapshot.forEach((doc) => {
       const obj = { ...doc.data(), documentId: doc.id }
       dataArr.push(obj)

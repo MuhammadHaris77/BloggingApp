@@ -2,22 +2,49 @@ import React, { useEffect, useState } from 'react'
 import { auth, getAllData } from '../config/firebaseMethods'
 import { Link,useParams, useNavigate } from 'react-router-dom'
 import Logo from '../image/profile.jpg'
-const Home = () => {
+import { format } from "date-fns";
+import { Timestamp } from 'firebase/firestore';
 
+const Home = () => {
+  const [loading, setLoading] = useState(false)
   const [dataAllBlog,setdataAllBlog] = useState([])
   const navigate = useNavigate()
-  useEffect(()=>{
-  getAllData( 'blog')
-  .then((res)=>{
-  //  console.log(res)
-    setdataAllBlog(res)
 
-  }).catch((err)=>{
-  //  console.log(err)
-  })
+  // useEffect(()=>{
+  // getAllData( 'blog')
+  // .then((res)=>{
+  //   console.log(res)
+  //   setdataAllBlog(res)
+
+  // }).catch((err)=>{
+  // //  console.log(err)
+  // })
     
-  },[])
+  // },[])
 
+
+  useEffect(() => {
+    setLoading(true)
+    getAllData('blog')
+      .then((res) => {
+        res = res.map((item) => ({
+          ...item,
+          Timestamp: item.Timestamp.toDate() 
+          
+         }));
+          console.log(res[0])
+          setdataAllBlog(res);
+         
+      })
+      .catch((err) => {
+        console.error(err);
+      }).finally(() => {
+        setLoading(false)
+  
+      });
+  }, []);
+  
+console.log(dataAllBlog)
 
 const singleUser=(item)=>{
 
@@ -38,15 +65,19 @@ const singleUser=(item)=>{
   return (
     <div>
       <div className='grid justify-items-start bg-[#2b2d42]'>
-        <h1 className=" text-blue-700 m-2 text-center text-white  text-4xl   ">Good Morning Readers!</h1>
+        <h1 className=" text-blue-700 m-2 text-center text-white mt-20  text-4xl" >Good Morning Readers!</h1>
        </div>
 
       <div>
+        {loading &&  <div className='text-center'>
+          <span className="loading loading-spinner m-auto text-white loading-lg text-center h-[100px] " ></span>
+        </div>
+         }
       {
         dataAllBlog && dataAllBlog.map((item,index)=>{
           return (
-            <div key={index} className='grid justify-items-center'>
-            <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
+            <div key={index} className='grid justify-items-center bg-[#0a2472]'>
+            <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl" >
               <div className="card-body ">
               <div className="avatar">
                         <div className="w-24 rounded-full">
@@ -55,6 +86,10 @@ const singleUser=(item)=>{
                       </div>
             
                 <h2 className="card-title text-white justify-start">{item.title}</h2>
+                <p className="text-sm text-gray-400 justify-start">
+                Published on: {item.Timestamp.toString()}
+                 </p>
+        
                 <p className='text-base-content text-neutral-content justify-start'>{item.description}</p>
                 <br />
                 <div className="card-actions ">

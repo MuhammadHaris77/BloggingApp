@@ -18,10 +18,13 @@ const password1 = useRef()
 const password2 = useRef()
   return (
     <div>
-      <div className='grid justify-items-center'>
+      <div className='grid justify-items-start bg-[#2b2d42]'>
+        <h1 className=" text-blue-700 m-2 text-center text-white  mt-20  text-4xl" >User Profile</h1>
+       </div>
+
+      <div className='grid justify-items-center '>
 
         <div className='  text-center shadow-lg m-3 p- w-5/6 '>
-          <h1 className=" text-[#0a2472] m-4 text-center text-4xl ">User</h1>
           <div className="avatar">
             <div className="w-24 rounded-xl">
               <img src="https://static.thenounproject.com/png/363640-200.png" />
