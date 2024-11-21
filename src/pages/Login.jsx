@@ -36,12 +36,14 @@ const Login = () => {
     }
 
     return (
-        <div className='m-auto'>
+        <div className='m-auto '>
             {success ? <Alert alert='User Successfully Login! ' /> : error && <Error alert={error} />}
-            <form onSubmit={logIn} className='m-4 p-4 bg-base-700 text-center  rounded-lg  shadow-xl ' style={{ width: '70%', margin: " 15px auto" }}  >
-                <h1 className=" text-[#0a2472] m-2 text-center text-6xl ">Log In</h1>
+            <br />
+            <br />
+            <form onSubmit={logIn} className='m-4 p-4 bg-base-700 text-center  rounded-lg  shadow-xl m-10  bg-[#2b2d42]' style={{ width: '70%', margin: " 25px auto" }}  >
+               <br />
+               <h1 className=" text-[#ffff] m-2 text-center text-6xl ">Log In</h1>
 
-                <br />
                 <br />
                 <label className="input input-bordered flex items-center gap-2">
                     <svg
@@ -72,8 +74,8 @@ const Login = () => {
                     <input type="password" autoComplete='on' required className="grow" placeholder='Password' ref={password} />
                 </label>
                 <br />
-                <button className="btn text-lg bg-[#0a2472]  text-white">LogIn</button>
-                <p className='p-2'>Don't Have an Account? <Link to={'/register'} className='text-[#0a2472] font-semibold' >Sign Up</Link>  </p>
+                <button className="btn text-lg bg-[#ffff] text-[#2b2d42]  text-black">LogIn</button>
+                <p className='p-2 text-[#ffff]'>Don't Have an Account? <Link to={'/register'} className='text-[#ffff] font-semibold' ><u>Sign Up</u></Link>  </p>
 
             </form>
         </div>

@@ -10,33 +10,19 @@ const Home = () => {
   const [dataAllBlog,setdataAllBlog] = useState([])
   const navigate = useNavigate()
 
-  // useEffect(()=>{
-  // getAllData( 'blog')
-  // .then((res)=>{
-  //   console.log(res)
-  //   setdataAllBlog(res)
-
-  // }).catch((err)=>{
-  // //  console.log(err)
-  // })
-    
-  // },[])
-
 
   useEffect(() => {
     setLoading(true)
     getAllData('blog')
-      .then((res) => {
-        res = res.map((item) => ({
-          ...item,
-          Timestamp: item.Timestamp.toDate() 
-          
-         }));
-          console.log(res[0])
-          setdataAllBlog(res);
-         
-      })
-      .catch((err) => {
+    .then((res) => {
+      res = res.map((item) => ({
+        ...item,
+        Timestamp :item?.Timestamp?.toDate() }
+      ));
+        setdataAllBlog(res);
+       
+    })
+   .catch((err) => {
         console.error(err);
       }).finally(() => {
         setLoading(false)
@@ -44,7 +30,7 @@ const Home = () => {
       });
   }, []);
   
-console.log(dataAllBlog)
+console.log(dataAllBlog[0])
 
 const singleUser=(item)=>{
 
@@ -70,13 +56,13 @@ const singleUser=(item)=>{
 
       <div>
         {loading &&  <div className='text-center'>
-          <span className="loading loading-spinner m-auto text-white loading-lg text-center h-[100px] " ></span>
+          <span className="loading loading-spinner m-auto text-black loading-lg text-center h-[100px] " ></span>
         </div>
          }
       {
         dataAllBlog && dataAllBlog.map((item,index)=>{
           return (
-            <div key={index} className='grid justify-items-center bg-[#0a2472]'>
+            <div key={index} className='grid justify-items-center bg-[#ffff]'>
             <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl" >
               <div className="card-body ">
               <div className="avatar">
@@ -87,7 +73,7 @@ const singleUser=(item)=>{
             
                 <h2 className="card-title text-white justify-start">{item.title}</h2>
                 <p className="text-sm text-gray-400 justify-start">
-                Published on: {item.Timestamp.toString()}
+                Published on: {item.Timestamp?.toString()}
                  </p>
         
                 <p className='text-base-content text-neutral-content justify-start'>{item.description}</p>

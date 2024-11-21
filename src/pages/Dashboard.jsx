@@ -17,12 +17,7 @@ const Dashboard = () => {
   useEffect(() => {
     getData('blog', auth.currentUser.uid)
     .then((res) => {
-      res = res.map((item) => ({
-        ...item,
-        Timestamp: item.Timestamp.toDate() 
-        
-       }));
-        console.log(res[0])
+        console.log(res)
         setData(res);
          }).catch((err) => {
         console.log(err)
@@ -105,6 +100,8 @@ const Dashboard = () => {
         console.log(res)
         data.splice(deleteBlogId.index, 1)
         setData([...data]);
+        setDeleteBlogId('')
+
       }).catch((err) => {
         console.log(err);
       }).finally(() => {
@@ -123,14 +120,14 @@ const Dashboard = () => {
         </div>
          }
 
-      <div className='grid justify-items-start bg-[#2b2d42]'>
+      <div className='grid justify-items-start bg-[#2b2d42] '>
         <h1 className=" text-white m-2 text-center rounded text-[white] text-4xl pl-3 mt-20 ">Dashboard</h1>
       </div>
 
 
       <div className='grid justify-items-center  mt-10'>
 
-        <form onSubmit={publishBlog} className=' text-center  shadow-lg mx-3 p-5 w-5/6 bg-[#2b2d42]' >
+        <form onSubmit={publishBlog} className=' text-center  shadow-lg mx-3 p-5 w-5/6 bg-[#2b2d42] rounded' >
         <h1 className=" text-white m-2 text-center rounded text-[white] text-4xl pl-3  ">POST BLOG</h1>
         <br />
         <br />
@@ -140,7 +137,7 @@ const Dashboard = () => {
           <textarea ref={description} required className="textarea textarea-bordered w-full max-w-xl" placeholder="Whats in your mind?"></textarea>
           <br />
           <br />
-          <button type='submit' className="btn btn-outline bg-[#ffff]  text-black"  >{loading ? <span className="loading loading-spinner text-white loading-lg  " ></span> : "Publish Blog"} </button>
+          <button type='submit' className="btn btn-outline bg-[#ffff]  text-black"  >{loading ? <span className="loading loading-spinner text-black loading-lg  " ></span> : "Publish Blog"} </button>
 
         </form>
       </div>
@@ -148,10 +145,10 @@ const Dashboard = () => {
 
 
 
-      <div className='grid justify-items-center bg-[#0a2472]'>
+      <div className='grid justify-items-center bg-[#ffff] my-10'>
 
         <div className='  text-center shadow-lg m-3 bg-body-600 p- w-5/6  '>
-          <h1 className=" text-[#ffff] m-4 text-center text-4xl ">My Blogs</h1>
+          <h1 className=" text-[black] m-4 text-center text-4xl ">My Blogs</h1>
 
           {
             data && data.map((item, index) => {
@@ -167,7 +164,7 @@ const Dashboard = () => {
                       </div>
                       <h2 className="card-title text-white justify-start"> {item.title}</h2>
                       <p className="text-sm text-gray-400 justify-start">
-                        Published on: {item.Timestamp.toString()}
+                        Published on: {item.Timestamp?.toDate().toString()}
                       </p>
 
 
@@ -177,7 +174,7 @@ const Dashboard = () => {
                           setupdateBlogId(
                             {
                               documentId: item.docid,
-                              index: index
+                               index
                             }
                           )
                           document.getElementById('my_modal_2').showModal()
@@ -186,7 +183,7 @@ const Dashboard = () => {
                           setDeleteBlogId(
                             {
                               documentId: item.docid,
-                              index: index
+                              index
                             }
                           )
                           document.getElementById('my_modal_1').showModal()

@@ -40,8 +40,11 @@ const registerUser=(event)=>{
     return (
         <div className='m-auto'>
             {success ? <Alert alert='User Successfully Register! ' /> : error && <Error  alert={error}/>}
-            <form onSubmit={registerUser} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl ' style={{ width: '70%', margin: ' 15px auto' }}  >
-                <h1 className=" text-[#0a2472] m-2 text-center text-6xl ">Register</h1>
+            <br />
+            <br />
+            <form onSubmit={registerUser} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl bg-[#2b2d42]' style={{ width: '70%', margin: ' 25px auto' }}  >
+                 
+                <h1 className=" text-[#ffff]  text-center text-6xl ">Register</h1>
 
                 <br />
                 <label className="input input-bordered flex items-center gap-2">
@@ -85,9 +88,9 @@ const registerUser=(event)=>{
                     <input type="password" auto required className="grow" placeholder='Password' ref={password} />
                 </label>
                 <br />
-                <button className="btn text-lg bg-[#0a2472]  text-white">Register</button>
+                <button className="btn text-lg bg-[#ffff]   text-[#2b2d42]">Register</button>
 
-                <p className='p-2'>Already Have an Account? <Link to={'/login'} className='text-[#0a2472] font-semibold' >Sign In</Link>  </p>
+                <p className='p-2 text-white' >Already Have an Account? <Link to={'/login'} className='text-[#ffff] font-semibold' ><u>Sign In</u></Link>  </p>
 
             </form>
         </div>
