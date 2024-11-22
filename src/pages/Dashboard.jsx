@@ -127,7 +127,7 @@ const Dashboard = () => {
 
       <div className='grid justify-items-center  mt-10'>
 
-        <form onSubmit={publishBlog} className=' text-center  shadow-lg mx-3 p-5 w-5/6 bg-[#2b2d42] rounded' >
+        <form onSubmit={publishBlog} className=' text-center  shadow-lg mx-3 p-5 w-5/6 bg-[#0a2472] rounded' >
         <h1 className=" text-white m-2 text-center rounded text-[white] text-4xl pl-3  ">POST BLOG</h1>
         <br />
         <br />
@@ -155,7 +155,7 @@ const Dashboard = () => {
               return (
                 <div key={index} className='grid justify-items-center text-start bg-[0a2472]'>
 
-                  <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
+                  <div className="card m-2 p-2  bg-[#0a2472]  w-3/4 shadow-xl">
                     <div className="card-body ">
                       <div className="avatar">
                         <div className="w-24 rounded-full">

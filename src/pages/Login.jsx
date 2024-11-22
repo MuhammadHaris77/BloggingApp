@@ -40,7 +40,7 @@ const Login = () => {
             {success ? <Alert alert='User Successfully Login! ' /> : error && <Error alert={error} />}
             <br />
             <br />
-            <form onSubmit={logIn} className='m-4 p-4 bg-base-700 text-center  rounded-lg  shadow-xl m-10  bg-[#2b2d42]' style={{ width: '70%', margin: " 25px auto" }}  >
+            <form onSubmit={logIn} className='m-4 p-4 bg-base-700 text-center  rounded-lg  shadow-xl m-10  bg-[#0a2472]' style={{ width: '70%', margin: " 25px auto" }}  >
                <br />
                <h1 className=" text-[#ffff] m-2 text-center text-6xl ">Log In</h1>
 

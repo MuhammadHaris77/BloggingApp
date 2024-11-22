@@ -30,8 +30,8 @@ const password2 = useRef()
               <img src="https://static.thenounproject.com/png/363640-200.png" />
             </div>
           </div>
-          <div className='grid justify-items-center'>
-            <div className="card m-2 p-2  bg-[#2b2d42]  w-3/4 shadow-xl">
+          <div className='grid justify-items-center m-8'>
+            <div className="card m-2 p-2  bg-[#0a2472]  w-3/4 shadow-xl">
               <div className="card-body ">
 
                 <br />

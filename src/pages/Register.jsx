@@ -42,7 +42,7 @@ const registerUser=(event)=>{
             {success ? <Alert alert='User Successfully Register! ' /> : error && <Error  alert={error}/>}
             <br />
             <br />
-            <form onSubmit={registerUser} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl bg-[#2b2d42]' style={{ width: '70%', margin: ' 25px auto' }}  >
+            <form onSubmit={registerUser} className='m-4 p-4 bg-base-700 text-center   rounded-lg  shadow-xl bg-[#0a2472]' style={{ width: '70%', margin: ' 25px auto' }}  >
                  
                 <h1 className=" text-[#ffff]  text-center text-6xl ">Register</h1>
 
